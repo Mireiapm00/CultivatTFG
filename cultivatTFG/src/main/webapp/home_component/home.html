@@ -9,29 +9,37 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./home_component/home.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <p class="bold h2 text-center my-2 p-2">Fruita, Hortalisses, Mel i molt més, del camp a casa </p>
+        
+        <div id="carousel" class="carousel slide carousel-fade w-75 mx-auto pt-2 px-2" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"></button>
+            </div>
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="30000">
-                    <img src="img/carousel/carousel1.PNG" class="d-block w-100" alt="carousel1">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <img src="img/carousel/carousel1.PNG" class="d-block w-100 img-fluid" alt="carousel1">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+                        <h5></h5>
+                        <p></p>
                     </div>
                 </div>
-                <div class="carousel-item" data-bs-interval="30000">
-                    <img src="img/carousel/carousel2.PNG" class="d-block w-100" alt="carousel2">
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="img/carousel/carousel2.PNG" class="d-block w-100 img-fluid" alt="carousel2">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
+                        <h5></h5>
+                        <p></p>
                     </div>
                 </div>
-                <div class="carousel-item" data-bs-interval="30000">
-                    <img src="img/carousel/carousel3.PNG" class="d-block w-100" alt="carousel3">
+                <div class="carousel-item" data-bs-interval="2000">
+                    <img src="img/carousel/carousel3.PNG" class="d-block w-100 img-fluid" alt="carousel3">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
+                        <h5></h5>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -41,9 +49,38 @@ and open the template in the editor.
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Seguent</span>
+                <span class="visually-hidden">Següent</span>
             </button>
         </div>
-       
+        
+        <div class="container">
+            <p class="bold h4 text-center mt-5 p-2">Què és el que fem</p>
+            <hr class="mx-auto">
+            
+            <div class="d-flex justify-content-center my-2">
+                <div class="card mx-2" style="width: 20rem;">
+                    <img class="card-img-top d-block w-100" src="./img/img-home1.PNG" alt="Card image cap">
+                    <div class="card-body border border-light">
+                      <p class="card-text text-center">Produïm hortalisses i fruites des de xicotetes explotacions de proximitat i elaborats artesanals 
+                          (pa, mel, melmelades, ferments, oli...) amb criteris d'agroecologia i sobirania alimentària</p>
+                    </div>
+                </div>
+                <div class="card mx-2" style="width: 20rem;">
+                    <img class="card-img-top d-block w-100" src="./img/img-home1.PNG" alt="Card image cap">
+                    <div class="card-body border border-light">
+                      <p class="card-text text-center">Disposem de diferents formats de comanda, caixes tancades de fruita i verdura i comanda al detall</p>
+                    </div>
+                </div>
+                <div class="card mx-2" style="width: 20rem;">
+                    <img class="card-img-top d-block w-100" src="./img/img-home1.PNG" alt="Card image cap">
+                    <div class="card-body border border-light">
+                      <p class="card-text text-center">Som flexibles en la relació amb les persones consumidores dels nostres productes, volem construir un
+                            sistema alimentari i entre totes</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
     </body>
 </html>
