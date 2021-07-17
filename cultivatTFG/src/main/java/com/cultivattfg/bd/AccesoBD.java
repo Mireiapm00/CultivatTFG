@@ -10,7 +10,10 @@
  */
 package com.cultivattfg.bd;
 
+import com.cultivattfg.bd.classesBD.CategoriasBD;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccesoBD {
     
@@ -83,6 +86,36 @@ public class AccesoBD {
             return false;
         }
     }
+    
+    public List<CategoriasBD> obtenerCategoriasBD(){
+        abrirConexionBD();
+        
+        ArrayList<CategoriasBD> categorias = new ArrayList<>();
+        CategoriasBD categoria;
+        
+        ResultSet resultados = null;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT * FROM categorias";
+            resultados = s.executeQuery(con);
+            
+            while(resultados.next()){
+                categoria = new CategoriasBD();
+                categoria.setId_categoria(resultados.getInt("id_categoria"));
+                categoria.setNombre(resultados.getString("nombre"));
+                categorias.add(categoria);
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error ejecutando la consulta a la BBDD.");
+        }
+        
+        return categorias;
+    }
+    
     /*
     public List<ProductoBD> obtenerProductosBD() {
         abrirConexionBD();
