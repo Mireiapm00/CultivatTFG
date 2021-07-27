@@ -10,7 +10,7 @@
  */
 package com.cultivattfg.bd;
 
-import com.cultivattfg.bd.classesBD.CategoriasBD;
+import com.cultivattfg.bd.classesBD.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class AccesoBD {
     
     public void abrirConexionBD() {
         if(conexionBD == null){
-            String nombreConexionBD = "jdbc:mysql://localhost/cultivat";
+            String nombreConexionBD = "jdbc:mysql://localhost/ecollaures";
             
             try {
                 //root y sin clave: usuario por defecto que crea XAMPP
@@ -81,11 +81,104 @@ public class AccesoBD {
                 return false;
             }
         }
-        catch(Exception e){
+        catch(SQLException e){
             System.out.println("No se ha completado la petición");
             return false;
         }
     }
+    
+    boolean comprobarUsuarioProductorBD(String user, String key){
+        abrirConexionBD();
+        
+        boolean productor = false;
+        ResultSet resultados = null;
+        
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            con = "SELECT productor FROM `usuarios` WHERE usuario='" + user + "' and password='" + key + "'";
+            resultados = s.executeQuery(con);
+            
+            if(resultados.next()){
+                productor = resultados.getBoolean("productor");
+                return productor;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("No se ha completado la petición");
+            return false;
+        }
+    }
+    
+    public Usuario obtenerUsuarioBD(String usuario){
+        abrirConexionBD();
+
+        ResultSet resultados = null;
+        Usuario user = new Usuario();
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            con = "SELECT * FROM usuarios WHERE usuario=\"" + usuario + "\"";
+            resultados = s.executeQuery(con);
+            
+            while (resultados.next()){
+                user.setId_usuario(resultados.getInt("id_usuario"));
+                user.setUsuario(resultados.getString("usuario"));
+                user.setPassword(resultados.getString("password"));
+                user.setEmail(resultados.getString("email"));
+                user.setNombre(resultados.getString("nombre"));
+                user.setApellidos(resultados.getString("apellidos"));
+                user.setDomicilio(resultados.getString("domicilio"));
+                user.setPoblacion(resultados.getString("poblacion"));
+                user.setProvincia(resultados.getString("provincia"));
+                user.setCp(resultados.getInt("cp"));
+                user.setTelefono(resultados.getInt("telefono"));
+                user.setProductor(resultados.getBoolean("productor"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al completar la consulta");
+        }
+                
+        return user;
+    }
+    
+    public ProductoresBD obtenerProductorBD(int id_usuario){
+        abrirConexionBD();
+
+        ResultSet resultados = null;
+        ProductoresBD productor = new ProductoresBD();
+        
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            con = "SELECT * FROM productores WHERE id_usuario = " + id_usuario + "";
+            resultados = s.executeQuery(con);
+            
+            while (resultados.next()){
+                productor.setId_productor(resultados.getInt("id_productor"));
+                productor.setId_usuario(resultados.getInt("id_usuario"));
+                productor.setId_categoria(resultados.getInt("id_categoria"));
+                productor.setSello_spg(resultados.getString("sello_spg"));
+                productor.setNombre(resultados.getString("nombre"));
+                productor.setTelefono(resultados.getInt("telefono"));
+                productor.setEmail(resultados.getString("email"));
+                productor.setUbicacion(resultados.getString("ubicacion"));
+                productor.setWeb(resultados.getString("web"));
+                productor.setReparto(resultados.getString("reparto"));
+                productor.setDescripcion(resultados.getString("descripcion"));
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al completar la consulta");
+        }
+        
+        return productor;
+    }
+    
     
     public List<CategoriasBD> obtenerCategoriasBD(){
         abrirConexionBD();
@@ -114,6 +207,185 @@ public class AccesoBD {
         }
         
         return categorias;
+    }
+    
+    public boolean registroUsuarioBD(Usuario usuario) {
+        abrirConexionBD();
+        boolean ok = false;
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "INSERT INTO usuarios (usuario, password, activo, email, telefono, productor)"
+                    + " VALUES (\"" + usuario.getUsuario() + "\",\"" + usuario.getPassword() + "\"," + usuario.isActivo() + ",\"" 
+                    + usuario.getEmail() + "\"," + usuario.getTelefono() + ", " + usuario.isProductor()+ ")";
+            
+            s.executeUpdate(con);
+            ok = true;
+
+        }catch(SQLException e){
+            System.out.println("Error al insertar en la BBDD");
+        }
+        
+        return ok;
+    }
+    
+    public int obtenerIdUsuarioBD(String usuario){
+        abrirConexionBD();
+        
+        int id_usuario = 0;
+        ResultSet resultados = null;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT * FROM usuarios WHERE usuario = \"" + usuario + "\"";
+            resultados = s.executeQuery(con);
+            
+            while(resultados.next()){
+                id_usuario = resultados.getInt("id_usuario");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al consultar a la BBDD");
+        }
+        
+        return id_usuario;
+    }
+    
+    public int obtenerIdProductorBD(int id_usuario){
+        abrirConexionBD();
+        
+        int id_productor = 0;
+        ResultSet resultados = null;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT id_productor FROM productores WHERE id_usuario = \"" + id_usuario + "\"";
+            resultados = s.executeQuery(con);
+            
+            while(resultados.next()){
+                id_productor = resultados.getInt("id_productor");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al consultar a la BBDD");
+        }
+        
+        return id_productor;
+    }
+    
+    
+    public boolean registroUsuarioProductorBD(ProductoresBD productor){
+        abrirConexionBD();
+        boolean ok = false;
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "INSERT INTO productores (id_usuario, id_categoria, sello_spg, nombre, telefono, email, ubicacion, web, reparto, descripcion)"
+                    + " VALUES (" + productor.getId_usuario() + ", " + productor.getId_categoria() + ", \"" + productor.getSello_spg() + "\", \"" 
+                    + productor.getNombre() + "\", "  + productor.getTelefono() + ", \"" + productor.getEmail() + "\", \"" + productor.getUbicacion() + "\", \"" 
+                    + productor.getWeb() + "\", \"" + productor.getReparto() + "\", \"" + productor.getDescripcion() + "\"" + ")";
+            
+            s.executeUpdate(con);
+            ok = true;
+
+        }catch(SQLException e){
+            System.out.println("Error al insertar en la BBDD");
+        }
+        
+        return ok;
+        
+    }
+            
+    public List<ProductoresBD> obtenerProductoresPorCategoria(int id_categoria){
+        
+        ArrayList<ProductoresBD> productores = new ArrayList<>();
+        ProductoresBD productor;
+        ResultSet resultados = null;
+        
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT * FROM productores WHERE id_categoria = " + id_categoria + " ORDER BY nombre";
+            
+            resultados = s.executeQuery(con);
+            
+            while (resultados.next()){
+                productor = new ProductoresBD();
+                productor.setSello_spg(resultados.getString("sello_spg"));
+                productor.setNombre(resultados.getString("nombre"));
+                productor.setTelefono(resultados.getInt("telefono"));
+                productor.setEmail(resultados.getString("email"));
+                productor.setUbicacion(resultados.getString("ubicacion"));
+                productor.setWeb(resultados.getString("web"));
+                productor.setReparto(resultados.getString("reparto"));
+                productor.setDescripcion(resultados.getString("descripcion"));
+                productor.setImgroute(resultados.getString("imgroute"));
+                productor.setId_productor(resultados.getInt("id_productor"));
+                productor.setId_categoria(resultados.getInt("id_categoria"));
+                productor.setId_usuario(resultados.getInt("id_usuario"));
+                productores.add(productor);
+            }
+        }
+        catch(SQLException e) {
+            System.out.println("Error ejecutando la consulta a la BBDD.");
+        }
+        
+        return productores;
+    }
+    
+    public boolean modificarUsuarioBD(Usuario usuario){
+        abrirConexionBD();
+        
+        boolean ok = false;
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "UPDATE usuarios SET usuario = \"" + usuario.getUsuario() + "\", password = \"" + usuario.getPassword()
+                    + "\", activo = " + usuario.isActivo() + ", email = \"" + usuario.getEmail() + "\", nombre = \"" + usuario.getNombre()
+                    + "\", apellidos = \"" + usuario.getApellidos() + "\", domicilio = \"" + usuario.getDomicilio() + "\", poblacion = \""
+                    + usuario.getPoblacion() + "\", provincia = \"" + usuario.getProvincia() + "\", cp = " + usuario.getCp() + ", telefono = " 
+                    + usuario.getTelefono() + ", productor = " + usuario.isProductor()                 
+                    + " WHERE id_usuario = " + usuario.getId_usuario() + ";"; 
+            
+            s.executeUpdate(con);
+            ok = true;
+        }catch(SQLException e){
+            System.out.println("Error al ejecutar la consulta.");
+        }
+        
+        return ok;
+    }
+    
+    public boolean modificarProductorBD(ProductoresBD productor){
+        abrirConexionBD();
+        
+        boolean ok = false;
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "UPDATE productores SET id_categoria = " + productor.getId_categoria() + ", sello_spg = \""
+                    + productor.getSello_spg() + "\", nombre = \"" + productor.getNombre() + "\", telefono = \""
+                    + productor.getTelefono() + "\", email = \"" + productor.getEmail() + "\", ubicacion = \""
+                    + productor.getUbicacion() + "\", web = \"" + productor.getWeb() + "\", reparto = \""
+                    + productor.getReparto() + "\", descripcion = \"" + productor.getDescripcion() + "\""
+                    + " WHERE id_productor = " + productor.getId_productor() + ";"; 
+            
+            s.executeUpdate(con);
+            ok = true;
+        }catch(SQLException e){
+            System.out.println("Error al ejecutar la consulta.");
+        }
+        
+        return ok;
     }
     
     /*
@@ -206,72 +478,7 @@ public class AccesoBD {
         }
     }
     */
-    /*
-    public ResultSet obtenerUsuarioBD(String usuario){
-        abrirConexionBD();
-
-        ResultSet resultados = null;
-        try {
-            String con;
-            Statement s = conexionBD.createStatement();
-            con = "SELECT * FROM usuarios WHERE usuario=\"" + usuario + "\"";
-            resultados = s.executeQuery(con);
-        }
-        catch(Exception e){
-            System.out.println("Error al completar la consulta");
-        }
-                
-        return resultados;
-    }
-    */
-    /*
-    public boolean modificarUsuarioBD(String[] datos, int id, String direccion){
-        abrirConexionBD();
-        
-        boolean ok = false;
-        try{
-            String con;
-            Statement s = conexionBD.createStatement();
-            if(direccion == null){
-                con = "UPDATE usuarios SET nombre=\"" + datos[0] + "\", apellidos=\"" + datos[1] +
-                        "\", tlf=\"" + datos[2] + "\", poblacion=\"" + datos[3] + "\", provincia=\"" + datos[4] +
-                         "\", cp=\"" + datos[5] + "\", password=\"" + datos[6] + "\", usuario=\"" + datos[7] + 
-                        "\", domicilio=\"" + datos[8] + "\", tarjeta=\"" + datos[9] + "\" WHERE id=" + id + ";"; 
-            }else{
-                con = "UPDATE usuarios SET  poblacion=\"" + datos[3] + "\", provincia=\"" + datos[4] +
-                         "\", cp=\"" + datos[5] + "\", domicilio=\"" + datos[8] + "\" WHERE id=" + id + ";";
-            }
-            s.executeUpdate(con);
-            ok = true;
-        }catch(Exception e){
-            System.out.println("Error al completar la consulta.");
-        }
-        
-        return ok;
-    }
-    */
-    /*
-    public boolean registrarUsuarioBD(String[] datos) {
-        abrirConexionBD();
-        boolean ok = false;
-        try {
-            String con;
-            Statement s = conexionBD.createStatement();
-            con = "INSERT INTO usuarios(nombre, apellidos, tlf, poblacion, provincia, cp, password, usuario, domicilio, tarjeta, activo)"
-                    + " VALUES ('" + datos[0] + "','" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" 
-                    + datos[4] + "', '" + datos[5] + "', '" + datos[6] + "', '"  + datos[7] + "', '"
-                    + datos[8] + "', '" + datos[9] + "',1)";
-            
-            s.executeUpdate(con);
-            ok = true;
-
-        }catch(SQLException e){
-            System.out.println("Error al insertar en la BBDD");
-        }
-        
-        return ok;
-    }
-    */
+    
     /*
     int obtenerStockProductoBD(int id) throws SQLException {
         abrirConexionBD();

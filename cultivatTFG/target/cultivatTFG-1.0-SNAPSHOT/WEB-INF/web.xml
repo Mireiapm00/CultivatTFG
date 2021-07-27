@@ -8,6 +8,22 @@
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>com.cultivattfg.bd.CerrarSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistroUsuario</servlet-name>
+        <servlet-class>com.cultivattfg.bd.RegistroUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistroUsuarioProductor</servlet-name>
+        <servlet-class>com.cultivattfg.bd.RegistroUsuarioProductor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarDatosUsuario</servlet-name>
+        <servlet-class>com.cultivattfg.bd.ModificarDatosUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarDatosProductor</servlet-name>
+        <servlet-class>com.cultivattfg.bd.ModificarDatosProductor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginUsuario</servlet-name>
         <url-pattern>/LoginUsuario</url-pattern>
@@ -15,6 +31,22 @@
     <servlet-mapping>
         <servlet-name>CerrarSesion</servlet-name>
         <url-pattern>/CerrarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistroUsuario</servlet-name>
+        <url-pattern>/RegistroUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistroUsuarioProductor</servlet-name>
+        <url-pattern>/RegistroUsuarioProductor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarDatosUsuario</servlet-name>
+        <url-pattern>/ModificarDatosUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarDatosProductor</servlet-name>
+        <url-pattern>/ModificarDatosProductor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

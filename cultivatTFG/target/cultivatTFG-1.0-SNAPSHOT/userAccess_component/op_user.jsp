@@ -14,17 +14,30 @@
     </head>
     <body>
         <%
-                            
+            String mensaje = (String)session.getAttribute("ERROR");
+            if(mensaje != null){
+                session.removeAttribute("ERROR");
+        %>
+                <div class="alert alert-danger"><%=mensaje%></div>
+        <%
+            }
+            String mensaje2 = (String)session.getAttribute("SUCCESS");
+            if(mensaje2 != null){ 
+                session.removeAttribute("SUCCESS");
+        %>
+                <div class="alert alert-success"><%=mensaje2%></div>
+        <%
+            }
             String usuarioActual = (String)session.getAttribute("user");
             if(usuarioActual == null) { //usuario no registrado
                 response.sendRedirect("userAccess.jsp");
             }
             else {   
         %>
-        <h4><%=usuarioActual%></h4>
-        <form method="post" onsubmit="ProcesarForm(this, 'CerrarSesion', 'cuerpo');return false">
-            <input type="submit" class="btn btn-dark" value="Cerrar sesión">
-        </form>
+                <h4><%=usuarioActual%></h4>
+                <form method="post" onsubmit="ProcesarForm(this, 'CerrarSesion', 'cuerpo');return false">
+                    <input type="submit" class="btn btn-dark" value="Cerrar sesión">
+                </form>
         <%
             }
         %>

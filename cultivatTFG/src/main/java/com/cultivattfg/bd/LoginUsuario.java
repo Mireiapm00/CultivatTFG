@@ -34,14 +34,19 @@ public class LoginUsuario extends HttpServlet {
         String key = request.getParameter("key");
         
         HttpSession sesion = request.getSession(true);
-        
         AccesoBD con = AccesoBD.getInstance();
         
         if(con.comprobarUsuarioBD(user, key)){
             sesion.setAttribute("user", user);
-            sesion.setAttribute("mensaje", "ENTRAAAA");
-            /* change for any type of user */
-            response.sendRedirect("./userAccess_component/userAccess.jsp");
+            sesion.setAttribute("mensaje", "Benvingut");
+            if(con.comprobarUsuarioProductorBD(user, key)){
+                sesion.setAttribute("productor", "true");
+                con.cerrarConexionBD();
+                response.sendRedirect("./userAccess_component/op_productor.jsp");
+            }
+            else {
+                response.sendRedirect("./userAccess_component/userAccess.jsp");
+            }
         }
         else{
             sesion.setAttribute("mensaje", "Usuario y/o clave incorrectos");

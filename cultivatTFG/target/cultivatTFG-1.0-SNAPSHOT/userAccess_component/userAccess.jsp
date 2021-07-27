@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="./js/libCapas.js" type="text/javascript"></script>
+        <link href="./userAccess_component/userAccess.css" rel="stylesheet" type="text/css">
         <title>&nbsp;</title>
     </head>
     <body>
@@ -20,26 +21,28 @@
                 <aside class="col-sm-4">
                     <div class="card">
                         <article class="card-body">
-                            <button type="button" class="float-right btn btn-outline-dark btn-sm">Registra't</button>
+                            <button type="button" class="float-right btn btn-outline-dark btn-sm" onclick="Cargar('userAccess_component/registrarse.jsp', 'cuerpo')" >Registra't</button>
                             <h4 class="card-title text-center mb-4 mt-4">Iniciar Sessió</h4>
                             <hr>
             <%
-                String mensaje = (String)session.getAttribute("mensaje");
+                String mensaje = (String)session.getAttribute("ERROR");
                 if(mensaje != null){
-                    session.removeAttribute("mensaje");
+                    session.removeAttribute("ERROR");
             %>
-                    <p><%=mensaje%></p>
+                    <div class="alert alert-danger"><%=mensaje%></div>
             <%
                 }
                 String usuarioActual = (String)session.getAttribute("user");
+                String productor = (String)session.getAttribute("productor");
+
                 if(usuarioActual == null) { //usuario no registrado
 
             %>
                             <form name="usuarioLogin" method="post" onsubmit="ProcesarForm(this, 'LoginUsuario', 'cuerpo');return false">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="inputUseremail"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                        <input type="text" class="form-control" name="user" placeholder="Email" aria-label="Email" aria-describedby="inputUseremail">
+                                        <span class="input-group-text" id="inputUser"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" name="user" placeholder="Usuari" aria-label="Usuari" aria-describedby="inputUser">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -64,7 +67,12 @@
         <%
             }
             else {
-                response.sendRedirect("op_user.jsp");
+                if(productor == "true"){
+                    response.sendRedirect("op_productor.jsp");
+                }
+                else {
+                    response.sendRedirect("op_user.jsp");
+                }
             }
         %>
     </body>
