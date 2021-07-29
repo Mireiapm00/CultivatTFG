@@ -230,6 +230,29 @@ public class AccesoBD {
         return ok;
     }
     
+    public boolean registroProductoBD(ProductosBD producto){
+        abrirConexionBD();
+        boolean ok = false;
+        
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "INSERT INTO productos (id_categoria, id_productor, nombre, stock, unidad, precio_unitario, ingredientes)"
+                    + " VALUES( " + producto.getId_categoria() + ", " + producto.getId_productor() + ", \"" + producto.getNombre() + "\", "
+                    + producto.getStock() + ", \"" + producto.getUnidad() + "\", " + producto.getPrecio_unitario() + ", \"" 
+                    + producto.getIngredientes() + "\")";
+            
+            s.executeUpdate(con);
+            ok = true;
+
+        }catch(SQLException e){
+            System.out.println("Error al insertar en la BBDD. ");
+        }
+        
+        return ok;
+    }
+    
     public int obtenerIdUsuarioBD(String usuario){
         abrirConexionBD();
         
@@ -276,6 +299,30 @@ public class AccesoBD {
         }
         
         return id_productor;
+    }
+    
+    public int obtenerIdCategoriaProductor(int id_productor){
+        abrirConexionBD();
+        int id_categoria = 0;
+        ResultSet resultados = null;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT id_categoria FROM productores WHERE id_productor = \"" + id_productor + "\"";
+            resultados = s.executeQuery(con);
+            
+            while(resultados.next()){
+                id_categoria = resultados.getInt("id_categoria");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al consultar a la BBDD");
+        }
+        
+        
+        return id_categoria;
     }
     
     
@@ -388,13 +435,31 @@ public class AccesoBD {
         return ok;
     }
     
-    /*
-    public List<ProductoBD> obtenerProductosBD() {
+    public boolean modificarProductoBD(ProductosBD producto){
+        abrirConexionBD();
+        boolean ok = false;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "UPDATE productos SET nombre = \"" + producto.getNombre() + "\", stock = " + producto.getStock()
+                    + ", unidad = \"" + producto.getUnidad() + "\", precio_unitario = " + producto.getPrecio_unitario() 
+                    + ", ingredientes = \"" + producto.getIngredientes() + "\" WHERE id_producto = " + producto.getId_producto() + ";"; 
+            
+            s.executeUpdate(con);
+            ok = true;
+        }catch(SQLException e){
+            System.out.println("Error al ejecutar la consulta.");
+        }
+        
+        return ok;
+    }
+    
+    public ProductosBD obtenerProducto(int id_producto){
         abrirConexionBD();
         
-        ArrayList<ProductoBD> productos = new ArrayList<>();
-        
-        ProductoBD producto;
+        ProductosBD producto = new ProductosBD();
         
         ResultSet resultados = null;
         
@@ -402,28 +467,83 @@ public class AccesoBD {
             String con;
             Statement s = conexionBD.createStatement();
             
-            con = "SELECT * FROM productos";
+            con = "SELECT * FROM productos WHERE id_producto = " + id_producto;
             
             resultados = s.executeQuery(con);
             
             while (resultados.next()){
-                producto = new ProductoBD(); //campos que dependeran de la consulta realizada y campos de la BBDD
-                producto.setId(resultados.getInt("id_producto"));
+                producto.setId_producto(resultados.getInt("id_producto"));
+                producto.setId_categoria(resultados.getInt("id_categoria"));
+                producto.setId_productor(resultados.getInt("id_productor"));
                 producto.setNombre(resultados.getString("nombre"));
-                producto.setDescripcion(resultados.getString("descripcion"));
-                producto.setPrecio(resultados.getFloat("precio"));
                 producto.setStock(resultados.getInt("stock"));
-                producto.setImagen(resultados.getString("imagen"));
-                productos.add(producto);
-                
+                producto.setUnidad(resultados.getString("unidad"));
+                producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
+                producto.setIngredientes(resultados.getString("ingredientes"));
             }
         }
-        catch(Exception e) {
+        catch(SQLException e) {
+            System.out.println("Error ejecutando la consulta a la BBDD.");
+        }
+        
+        return producto;
+    }
+    
+    public List<ProductosBD> obtenerProductosPorProductor(int id_productor) {
+        abrirConexionBD();
+        
+        ArrayList<ProductosBD> productos = new ArrayList<>();
+        
+        ProductosBD producto;
+        
+        ResultSet resultados = null;
+        
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT * FROM productos WHERE id_productor = " + id_productor;
+            
+            resultados = s.executeQuery(con);
+            
+            while (resultados.next()){
+                producto = new ProductosBD();
+                producto.setId_producto(resultados.getInt("id_producto"));
+                producto.setId_categoria(resultados.getInt("id_categoria"));
+                producto.setId_productor(resultados.getInt("id_productor"));
+                producto.setNombre(resultados.getString("nombre"));
+                producto.setStock(resultados.getInt("stock"));
+                producto.setUnidad(resultados.getString("unidad"));
+                producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
+                producto.setIngredientes(resultados.getString("ingredientes"));
+                productos.add(producto);
+            }
+        }
+        catch(SQLException e) {
             System.out.println("Error ejecutando la consulta a la BBDD.");
         }
         return productos;
     }
-    */
+    
+    public boolean eliminarProducto(int id_producto){
+        abrirConexionBD();
+        boolean ok = false;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "DELETE FROM productos WHERE id_producto = " + id_producto; 
+            
+            s.executeUpdate(con);
+            ok = true;
+        }catch(SQLException e){
+            System.out.println("Error al ejecutar la consulta.");
+        }
+        
+        return ok;
+    }
+    
     
     /*
     public List<UsuarioBD> obtenerUsuariosGestionBD(){

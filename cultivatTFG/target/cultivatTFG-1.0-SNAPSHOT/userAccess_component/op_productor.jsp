@@ -39,8 +39,8 @@
             <div class="d-flex justify-content-center my-4">
                 <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/mod_infoUsuario.jsp', 'cuerpo')">Modificar dades Usuari</button>
                 <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/mod_infoProductor.jsp', 'cuerpo')">Modificar dades Productor</button>
-                <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('', 'cuerpo')">Modificar productes</button>
-                <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('', 'cuerpo')">Gestió de comandes</button>
+                <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/mod_productos.jsp', 'cuerpo')">Gestió de productes</button>
+                <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/gestio_comandes.jsp', 'cuerpo')">Gestió de comandes</button>
 
                 <form method="post" onsubmit="ProcesarForm(this, 'CerrarSesion', 'cuerpo');return false">
                     <input type="submit" class="btn btn-dark" value="Tancar sesió">

@@ -70,9 +70,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalCenterTitle<%=prod.getId_productor()%>"><b><%=prod.getNombre()%></b></h5>
-                                <button type="button" class="close btn-light" data-dismiss="modal" aria-label="Close">
-                                    <i class="fa fa-times"></i>
-                                </button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="d-flex justify-content-center">
