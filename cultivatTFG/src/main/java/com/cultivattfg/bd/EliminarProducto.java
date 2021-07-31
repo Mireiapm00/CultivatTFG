@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author mirei
+ * @author mireia
  */
 public class EliminarProducto extends HttpServlet {
 

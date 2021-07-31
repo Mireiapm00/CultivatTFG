@@ -19,6 +19,7 @@ public class ProductosBD {
     private String unidad;
     private float precio_unitario;
     private String ingredientes;
+    private String imgroute;
 
     public int getId_producto() {
         return id_producto;
@@ -82,6 +83,14 @@ public class ProductosBD {
 
     public void setIngredientes(String ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    public String getImgroute() {
+        return imgroute;
+    }
+
+    public void setImgroute(String imgroute) {
+        this.imgroute = imgroute;
     }
     
 }

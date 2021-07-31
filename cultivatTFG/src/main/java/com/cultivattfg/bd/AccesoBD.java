@@ -480,6 +480,7 @@ public class AccesoBD {
                 producto.setUnidad(resultados.getString("unidad"));
                 producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
                 producto.setIngredientes(resultados.getString("ingredientes"));
+                producto.setImgroute(resultados.getString("imgroute"));
             }
         }
         catch(SQLException e) {
@@ -487,6 +488,43 @@ public class AccesoBD {
         }
         
         return producto;
+    }
+    
+    public List<ProductosBD> obtenerProductos(){
+        abrirConexionBD();
+        
+        ArrayList<ProductosBD> productos = new ArrayList<>();
+        
+        ProductosBD producto;
+        
+        ResultSet resultados = null;
+        
+        try {
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT * FROM productos ";
+            
+            resultados = s.executeQuery(con);
+            
+            while (resultados.next()){
+                producto = new ProductosBD();
+                producto.setId_producto(resultados.getInt("id_producto"));
+                producto.setId_categoria(resultados.getInt("id_categoria"));
+                producto.setId_productor(resultados.getInt("id_productor"));
+                producto.setNombre(resultados.getString("nombre"));
+                producto.setStock(resultados.getInt("stock"));
+                producto.setUnidad(resultados.getString("unidad"));
+                producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
+                producto.setIngredientes(resultados.getString("ingredientes"));
+                producto.setImgroute(resultados.getString("imgroute"));
+                productos.add(producto);
+            }
+        }
+        catch(SQLException e) {
+            System.out.println("Error ejecutando la consulta a la BBDD.");
+        }
+        return productos;
     }
     
     public List<ProductosBD> obtenerProductosPorProductor(int id_productor) {
@@ -516,6 +554,7 @@ public class AccesoBD {
                 producto.setUnidad(resultados.getString("unidad"));
                 producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
                 producto.setIngredientes(resultados.getString("ingredientes"));
+                producto.setImgroute(resultados.getString("imgroute"));
                 productos.add(producto);
             }
         }

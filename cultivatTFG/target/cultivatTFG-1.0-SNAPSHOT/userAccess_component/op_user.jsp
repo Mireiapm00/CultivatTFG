@@ -34,10 +34,17 @@
             }
             else {   
         %>
-                <h4><%=usuarioActual%></h4>
-                <form method="post" onsubmit="ProcesarForm(this, 'CerrarSesion', 'cuerpo');return false">
-                    <input type="submit" class="btn btn-dark" value="Cerrar sesión">
-                </form>
+                <p class="bold h5 mt-2 mb-3 text-center p-2">Benvingut usuari: <%=usuarioActual%></p>
+                <div class="d-flex justify-content-center my-4">
+                    <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/mod_infoUsuario.jsp', 'cuerpo')">Modificar dades Usuari</button>
+                    <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/gestio_comandes.jsp', 'cuerpo')">Les Meues Reserves</button>
+                    
+                    <form method="post" onsubmit="ProcesarForm(this, 'CerrarSesion', 'cuerpo');return false">
+                        <input type="submit" class="btn btn-dark" val ue="Cerrar sesión">
+                    </form>
+                </div>
+                
+                
         <%
             }
         %>
