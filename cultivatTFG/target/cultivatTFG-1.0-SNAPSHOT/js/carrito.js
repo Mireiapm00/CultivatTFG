@@ -38,34 +38,104 @@ function devuelveCantidadTotalCarrito(){
     return total;
 }
 
-function muestraCantidadTotalCarrito(){
-    document.getElementById('carrito').innerHTML = " (" + devuelveCantidadTotalCarrito() + ")";
+function devuelvePrecioTotalCarrito(){
+    var total = 0, p;
+    for(p in carrito){
+        total += carrito[p].precio_unitario * carrito[p].cantidad;
+    }
+    return total;
 }
 
-function mostrarCarritoCollapse(){
+function muestraCantidadTotalCarrito(){
+    document.getElementById('carrito').innerHTML = "(" + devuelveCantidadTotalCarrito() + ")";
+}
+function muestraPrecioTotalCarrito(){
+    document.getElementById('totalCarrito').innerHTML = devuelvePrecioTotalCarrito() + "€";
+}
+
+function addCantidadCarritoByIdProducto(id_producto, unidad){
+    var p;
+    
+    for(p in carrito){
+        if(p === id_producto.toString()) {
+            carrito[p].cantidad++;
+            canti++; 
+            document.getElementById(id_producto.toString()).innerHTML = carrito[p].cantidad + " " + unidad.toString();
+        }
+    }
+    actualizarCarrito();
+    muestraCantidadTotalCarrito();
+    muestraPrecioTotalCarrito();
+}
+
+function quitCantidadCarritoByIdProducto(row, id_producto){
+    var p;
+    
+    
+    
+}
+
+function deleteProductoCarritoByIdProducto(row, id_producto){
+    var p, i;
+    
+    for(p in carrito){
+        if(p === id_producto.toString()) {
+            canti -= carrito[p].cantidad;
+            i = row.parentNode.parentNode.rowIndex;
+            document.getElementById("carritoModal").deleteRow(i);
+            delete carrito[p];
+        }
+    }
+    actualizarCarrito();
+    muestraPrecioTotalCarrito();
+    muestraCantidadTotalCarrito();
+        
+}
+
+function mostrarContenidoCarrito(){
     
     var html = "";
     var p;
     
-    console.log(carrito);
-    
     for(p in carrito){
-        
-        html += " " + carrito[p].nombre + " ";
-        html += " " + carrito[p].cantidad + " ";
-        html += " " + carrito[p].precio_unitario + " €/" + carrito[p].unidad + " ";
-        html += " Total: " + carrito[p].cantidad * carrito[p].precio_unitario + " €";
-        html += "</div>";
+        html += "<tr id='Fila" + carrito[p].id_producto + "'>";
+        html += "<td>" + carrito[p].nombre + "</td>";
+        html += "<td class='text-center' id='" + carrito[p].id_producto + "'>" + carrito[p].cantidad + " " + carrito[p].unidad + "</td>";
+        html += "<td class='text-center'>" + carrito[p].precio_unitario + " €/" + carrito[p].unidad + "</td>";
+        html += "<td><i class='fa fa-plus-circle' role='button' onclick='addCantidadCarritoByIdProducto(" + carrito[p].id_producto + ", \"" + carrito[p].unidad + "\")'></i> <i class='fa fa-minus-circle ms-2' role='button' onclick='quitCantidadCarritoByIdProducto(this," + carrito[p].id_producto + " )'></i></td>";
+        html += "<td class='text-center'><i class='fa fa-trash' role='button' onclick='deleteProductoCarritoByIdProducto(this," + carrito[p].id_producto + ")'></i></td>";
+        html += "</tr>";
     }
     
-    document.getElementById('carritoCollapse').innerHTML = html;
+    return html;
+}
+
+function crearCarritoModal(){
+    var html = "";
+        
+    html += "<tbody>";
+    
+    if(canti !== 0){
+        html += mostrarContenidoCarrito();
+        document.getElementById("modal-footer").hidden = false;
+    }
+    else {
+        html += "<tr>";
+        html += "<td class='text-center'><img src='./img/logos/cistellabuida.png' class='img-fluid' alt='Cistella buida'></td>";
+        html += "</tr>"; 
+        document.getElementById("modal-footer").hidden = true;
+    }
+    html += "</tbody>";
+    
+    document.getElementById("carritoModal").innerHTML = html;
+    muestraPrecioTotalCarrito();
 }
 
 function anadirProductoCarrito(id_producto, nombre, precio_unitario, unidad){
 
     var p, encontrado = 0;
     for(p in carrito){
-        if(carrito[p].id_producto === id_producto) {
+        if(p === id_producto) {
             encontrado = 1;
             carrito[p].cantidad++;
         }
@@ -84,9 +154,8 @@ function anadirProductoCarrito(id_producto, nombre, precio_unitario, unidad){
     canti++;
     actualizarCarrito();
     
-    
     document.getElementById('carrito').innerHTML = " (" + canti + ")";
-    mostrarCarritoCollapse();
+    muestraPrecioTotalCarrito();
 }
 
 

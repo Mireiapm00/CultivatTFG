@@ -12,6 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="./shop_component/shop.css" rel="stylesheet" type="text/css">
         <title>&nbsp;</title>
     </head>
     <body>
@@ -36,26 +37,13 @@
                 <p class="fw-bold h3 mt-2 text-center p-2">Productes de l'SPG Ecollaures</p>
             </div>
             <div class="container w-75">
-                <div class="d-flex justify-content-end me-2 mb-2">
-                    
-                    <a class="btn btn-dark rounded-pill fw-bold" data-bs-toggle="collapse" href="#collapseCarrito" role="button" aria-expanded="false" aria-controls="collapseCarrito">
-                        Cistella <span id="carrito"></span>
-                    </a>
-                    
-                    <!--<h5><span class="badge rounded-pill bg-dark"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cistella<span id="carrito"></span></span></h5>-->
+                <div class="d-flex justify-content-start me-2 mb-2">
+                    <button type="button" class="btn btn-dark rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#modalCarrito" onclick="crearCarritoModal()">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cistella <span id="carrito"></span>
+                    </button>
                 </div>
-                <div class="collapse" id="collapseCarrito">
-                    <div class="card card-body" id="carritoCollapse">
-                        <script>
-                            mostrarCarritoCollapse();
-                        </script>
-                    </div>
-                </div>
-                
             </div>
                 
-                
-            
             <div class="d-flex justify-content-center">
         <%
             int j = 0;
@@ -72,7 +60,7 @@
                                 </p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>')">Afegir a la Cistella</button>
+                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>', '<%=p.getUnidad()%>')">Afegir a la Cistella</button>
                     </div>
         <%
                 }
@@ -90,7 +78,7 @@
                                 </p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>')">Afegir a la Cistella</button>
+                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>', '<%=p.getUnidad()%>')">Afegir a la Cistella</button>
                     </div>
         <%          j = 0;
                 }
@@ -100,5 +88,27 @@
             </div>
         </div>
         
+        <!-- MODAL CARRITO -->
+        <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarrito" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCarrito"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cistella</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="carritoModal" class="table table-responsive table-borderless">
+                        </table>
+                    </div>
+                    
+                    <div class="modal-footer justify-content-between" id="modal-footer">
+                        <div class="rounded-pill bg-light text-dark fw-bold ms-3 p-3">Total: &nbsp;<span id="totalCarrito"></span></div>
+                        <button id="buttonTramitar" type="button" class="btn btn-dark me-4">Tramitar comanda</button>    
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+            
     </body>
 </html>

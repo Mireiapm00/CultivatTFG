@@ -40,7 +40,7 @@
                     <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/gestio_comandes.jsp', 'cuerpo')">Les Meues Reserves</button>
                     
                     <form method="post" onsubmit="ProcesarForm(this, 'CerrarSesion', 'cuerpo');return false">
-                        <input type="submit" class="btn btn-dark" val ue="Cerrar sesión">
+                        <input type="submit" class="btn btn-dark" value="Tancar sesión">
                     </form>
                 </div>
                 
