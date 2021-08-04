@@ -41,15 +41,15 @@ public class LoginUsuario extends HttpServlet {
             sesion.setAttribute("mensaje", "Benvingut");
             if(con.comprobarUsuarioProductorBD(user, key)){
                 sesion.setAttribute("productor", "true");
-                con.cerrarConexionBD();
-                response.sendRedirect("./userAccess_component/op_productor.jsp");
+                
+                response.sendRedirect("./userAccess_component/op_productor.jsp");                
             }
             else {
                 response.sendRedirect("./userAccess_component/userAccess.jsp");
             }
         }
         else{
-            sesion.setAttribute("mensaje", "Usuario y/o clave incorrectos");
+            sesion.setAttribute("ERROR", "Usuario y/o clave incorrectos");
             response.sendRedirect("./userAccess_component/userAccess.jsp");
         }
         

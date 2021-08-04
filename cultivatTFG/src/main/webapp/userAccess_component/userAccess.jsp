@@ -34,6 +34,7 @@
                 }
                 String usuarioActual = (String)session.getAttribute("user");
                 String productor = (String)session.getAttribute("productor");
+                String from = (String)session.getAttribute("from");
 
                 if(usuarioActual == null) { //usuario no registrado
 
@@ -71,7 +72,13 @@
                     response.sendRedirect("op_productor.jsp");
                 }
                 else {
-                    response.sendRedirect("op_user.jsp");
+                    if(from == "carrito") {
+                        session.removeAttribute("from");
+                        response.sendRedirect("../shop_component/shop.jsp");
+                    }
+                    else {
+                        response.sendRedirect("op_user.jsp");
+                    }
                 }
             }
         %>

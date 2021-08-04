@@ -20,15 +20,17 @@
             <script>
                 muestraCantidadTotalCarrito();
             </script>
-            
         <%
-           String usuarioActual = (String)session.getAttribute("user");
-           if(usuarioActual != null){
-           }
+            String mensaje = (String)session.getAttribute("ERRORSTOCK");
+            if(mensaje != null){
+                session.removeAttribute("ERRORSTOCK");
         %>
-        
-        
+                <div class="alert alert-danger"><%=mensaje%></div>
         <%
+            }
+
+            String usuarioActual = (String)session.getAttribute("user");
+            
             AccesoBD con = AccesoBD.getInstance();
             List<ProductosBD> productos = con.obtenerProductos();
         %>
@@ -37,10 +39,19 @@
                 <p class="fw-bold h3 mt-2 text-center p-2">Productes de l'SPG Ecollaures</p>
             </div>
             <div class="container w-75">
-                <div class="d-flex justify-content-start me-2 mb-2">
+                <div class="d-flex justify-content-between me-2 mb-2">
                     <button type="button" class="btn btn-dark rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#modalCarrito" onclick="crearCarritoModal()">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cistella <span id="carrito"></span>
                     </button>
+            <%
+                if(usuarioActual != null){
+            %>
+                    <button type="button" class="btn rounded-pill bg-light text-dark" onclick="Cargar('userAccess_component/op_user.jsp', 'cuerpo')">
+                        Hola&nbsp;<i class="fa fa-user"></i> <u class="fw-bold"><%=usuarioActual%></u>
+                    </button>
+            <%   
+                }
+            %>
                 </div>
             </div>
                 
@@ -103,7 +114,7 @@
                     
                     <div class="modal-footer justify-content-between" id="modal-footer">
                         <div class="rounded-pill bg-light text-dark fw-bold ms-3 p-3">Total: &nbsp;<span id="totalCarrito"></span></div>
-                        <button id="buttonTramitar" type="button" class="btn btn-dark me-4">Tramitar comanda</button>    
+                        <button id="buttonTramitar" type="button" class="btn btn-dark me-4" data-bs-dismiss="modal" onclick="ProcesarCarrito(carrito,'ProcesarPedido','cuerpo')">Tramitar comanda</button>    
                     </div>
                 </div>
             </div>

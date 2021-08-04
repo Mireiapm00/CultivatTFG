@@ -40,6 +40,10 @@
         <servlet-name>ModificarDatosProducto</servlet-name>
         <servlet-class>com.cultivattfg.bd.ModificarDatosProducto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarPedido</servlet-name>
+        <servlet-class>com.cultivattfg.bd.ProcesarPedido</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginUsuario</servlet-name>
         <url-pattern>/LoginUsuario</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>ModificarDatosProducto</servlet-name>
         <url-pattern>/ModificarDatosProducto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarPedido</servlet-name>
+        <url-pattern>/ProcesarPedido</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

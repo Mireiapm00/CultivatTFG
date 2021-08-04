@@ -325,6 +325,30 @@ public class AccesoBD {
         return id_categoria;
     }
     
+    public int obtenerStockProducto(int id_producto){
+        abrirConexionBD();
+        int stock = 0;
+        
+        ResultSet resultados = null;
+        
+        try{
+            String con;
+            Statement s = conexionBD.createStatement();
+            
+            con = "SELECT stock FROM productos WHERE id_producto = " + id_producto;
+            resultados = s.executeQuery(con);
+            
+            while(resultados.next()){
+                stock = resultados.getInt("stock");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al consultar a la BBDD");
+        }
+        
+        return stock;
+    }
+    
     
     public boolean registroUsuarioProductorBD(ProductoresBD productor){
         abrirConexionBD();

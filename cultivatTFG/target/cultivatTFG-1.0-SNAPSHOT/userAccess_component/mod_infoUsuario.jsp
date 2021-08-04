@@ -22,6 +22,16 @@
         else {   
             AccesoBD con = new AccesoBD();
             Usuario infoUsuario = con.obtenerUsuarioBD(usuarioActual);
+            String from = (String)session.getAttribute("from");
+            
+            if(from == "resguardo"){
+                session.removeAttribute("from");
+    %>
+                <div class="alert alert-info" role="alert">
+                    <i class="fa fa-info-circle"></i> Per completar la comanda cal omplir els camps de <span class="fw-bold">Nom i Cognoms</span>
+                </div>
+    <%
+            }
     %>
             <p class="bold h5 mt-2 mb-3 text-center p-2">Modificar dades de <b><%=infoUsuario.getUsuario()%></b></p>
     
