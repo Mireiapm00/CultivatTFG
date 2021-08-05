@@ -1,0 +1,74 @@
+<%-- 
+    Document   : pedidoFinalizado
+    Created on : 05-ago-2021, 19:40:40
+    Author     : mireia
+--%>
+
+<%@page import="com.cultivattfg.bd.classesBD.ProductoresBD"%>
+<%@page import="com.cultivattfg.bd.classesBD.DetalleBD"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.cultivattfg.bd.AccesoBD"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>&nbsp;</title>
+    </head>
+    <body>
+    <%
+        String usuarioActual = (String)session.getAttribute("user");
+        if(usuarioActual == null) { //usuario no registrado
+            response.sendRedirect("./userAccess_component/userAccess.jsp");
+        }
+        else {
+            AccesoBD con = new AccesoBD();
+            ProductoresBD productor = new ProductoresBD();
+            
+            int id_pedido = con.obtenerIdUltimoPedido();
+            List<DetalleBD> detallesPedido = con.obtenerDetallePorPedido(id_pedido);
+            
+    %>
+            <div class="container w-75">
+                <div class="d-flex justify-content-center my-2">
+                    <div class="alert alert-info" role="alert">
+                        <p class="p-2">Hola! <%=usuarioActual%> no oblides recollir la teua comanda!</p>
+                        <div class="d-flex">
+    <%
+                    for(DetalleBD detalle : detallesPedido){
+                        productor = con.obtenerInfoProductorBD(detalle.getId_productor());
+    %>
+                            <div class="card mx-4" style="width: 15rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%=productor.getNombre()%> ( <i class="fa fa-phone"></i> <%=productor.getTelefono()%>)</h5>
+                                    <p class="card-text"><i class="fa fa-envelope"></i> <%=productor.getEmail()%></p>
+                                </div>
+                            </div>
+    <%
+                    }
+    %>
+                        </div>
+                        <p class="p-2">
+                            Pots consultar més informació sobre cada productor 
+                            <a href="#" onclick="borrarCarrito(); Cargar('./userAccess_component/gestio_comandes.jsp', 'cuerpo')" role="button" class="btn rounded-pill bg-light text-dark">ací</a>
+                        </p>
+                    </div>
+                </div>    
+                <div class="d-flex justify-content-center mt-3 mb-4">
+                    <img src="./img/logos/comandaReservada.png" class="img-fluid" alt="Comanda Reservada">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn btn-dark me-4" onclick="borrarCarrito(); Cargar('shop_component/shop.jsp', 'cuerpo')"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> Tornar a la tenda</button>
+                    
+                    <button type="button" class="btn btn-dark me-4" onclick="borrarCarrito(); Cargar('userAccess_component/userAcess.jsp', 'cuerpo')"> Menú d'usuari</button>
+                    
+                </div> 
+            </div>
+    
+    <%
+        }
+    %>
+        
+    </body>
+</html>

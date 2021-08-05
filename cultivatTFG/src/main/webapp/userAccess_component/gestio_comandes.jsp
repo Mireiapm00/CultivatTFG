@@ -12,6 +12,21 @@
         <title>&nbsp;</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+        String usuarioActual = (String)session.getAttribute("user");
+        if(usuarioActual == null) { //usuario no registrado
+            response.sendRedirect("./userAccess_component/userAccess.jsp");
+        }
+        else {
+            
+            
+    %>
+            
+            ISOOOOO
+    
+    <%
+        }
+    %>
+        
     </body>
 </html>

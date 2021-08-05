@@ -7,13 +7,9 @@ package com.cultivattfg.bd;
 
 import com.cultivattfg.bd.classesBD.ProductosBD;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -96,7 +92,7 @@ public class ProcesarPedido extends HttpServlet {
             }
         }
         else {
-            sesion.setAttribute("ERRORSTOCK", "Aguns productes de la cistella no estan disponibles");
+            sesion.setAttribute("ERRORSTOCK", "Alguns productes de la cistella no estan disponibles");
             response.sendRedirect("./shop_component/shop.jsp");
         }
     }

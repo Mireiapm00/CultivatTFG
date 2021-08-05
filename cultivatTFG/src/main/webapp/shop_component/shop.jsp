@@ -19,6 +19,7 @@
         <div class="container">
             <script>
                 muestraCantidadTotalCarrito();
+                muestraTotalCarrito();
             </script>
         <%
             String mensaje = (String)session.getAttribute("ERRORSTOCK");
@@ -42,6 +43,7 @@
                 <div class="d-flex justify-content-between me-2 mb-2">
                     <button type="button" class="btn btn-dark rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#modalCarrito" onclick="crearCarritoModal()">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cistella <span id="carrito"></span>
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>&nbsp;<span id="totalCarrito"></span>
                     </button>
             <%
                 if(usuarioActual != null){
@@ -71,7 +73,7 @@
                                 </p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>', '<%=p.getUnidad()%>')">Afegir a la Cistella</button>
+                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>', '<%=p.getUnidad()%>')"> Afegir a la Cistella <i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                     </div>
         <%
                 }
@@ -89,7 +91,7 @@
                                 </p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>', '<%=p.getUnidad()%>')">Afegir a la Cistella</button>
+                        <button type="button" class="btn btn-outline-dark mx-4 mt-1 mb-4" style="width: 13rem;" onclick="anadirProductoCarrito('<%=p.getId_producto()%>', '<%=p.getNombre()%>', '<%=p.getPrecio_unitario()%>', '<%=p.getUnidad()%>')"> Afegir a la Cistella <i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                     </div>
         <%          j = 0;
                 }
@@ -113,13 +115,12 @@
                     </div>
                     
                     <div class="modal-footer justify-content-between" id="modal-footer">
-                        <div class="rounded-pill bg-light text-dark fw-bold ms-3 p-3">Total: &nbsp;<span id="totalCarrito"></span></div>
+                        <div class="rounded-pill bg-light text-dark fw-bold ms-3 p-3">Total: &nbsp;<span id="totalPrecioCarrito"></span></div>
                         <button id="buttonTramitar" type="button" class="btn btn-dark me-4" data-bs-dismiss="modal" onclick="ProcesarCarrito(carrito,'ProcesarPedido','cuerpo')">Tramitar comanda</button>    
                     </div>
                 </div>
             </div>
         </div>
-            
             
     </body>
 </html>

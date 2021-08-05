@@ -25,7 +25,6 @@
             String from = (String)session.getAttribute("from");
             
             if(from == "resguardo"){
-                session.removeAttribute("from");
     %>
                 <div class="alert alert-info" role="alert">
                     <i class="fa fa-info-circle"></i> Per completar la comanda cal omplir els camps de <span class="fw-bold">Nom i Cognoms</span>
@@ -100,8 +99,9 @@
                     
                     <div class="mb-2 text-center">
                         <input class="btn btn-dark me-4" type="submit" value="Modificar">
-                        <input class="btn btn-outline-dark" type="reset" value="Cancelar" 
-                                <%  if(infoUsuario.isProductor()){ %> onclick="Cargar('./userAccess_component/op_productor.jsp', 'cuerpo')"
+                        <input class="btn btn-outline-dark" type="reset" value="Cancelar"
+                                <% if(from == "resguardo"){ session.removeAttribute("from"); %> onclick="Cargar('./shop_component/shop.jsp', 'cuerpo')"
+                                <% } else if(infoUsuario.isProductor()){ %> onclick="Cargar('./userAccess_component/op_productor.jsp', 'cuerpo')"
                                 <% } else { %> onclick="Cargar('./userAccess_component/op_user.jsp', 'cuerpo')" <% } %> >
                     </div>
                 </div>
