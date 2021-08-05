@@ -31,33 +31,39 @@
             
     %>
             <div class="container w-75">
+                <div class="d-flex justify-content-center mt-3 mb-4">
+                    <img src="./img/logos/comandaReservada.png" class="img-fluid" alt="Comanda Reservada">
+                </div>
                 <div class="d-flex justify-content-center my-2">
                     <div class="alert alert-info" role="alert">
-                        <p class="p-2">Hola! <%=usuarioActual%> no oblides recollir la teua comanda!</p>
+                        <p class="p-2 fw-bold">¡Hola <%=usuarioActual%>! Gràcies per la teua reserva.</p>
+                        <p>Els productes encomanats són dels següents productors: </p>
                         <div class="d-flex">
     <%
                     for(DetalleBD detalle : detallesPedido){
                         productor = con.obtenerInfoProductorBD(detalle.getId_productor());
     %>
-                            <div class="card mx-4" style="width: 15rem;">
+                            <div class="card mx-4" style="width: 14rem;">
                                 <div class="card-body">
-                                    <h5 class="card-title"><%=productor.getNombre()%> ( <i class="fa fa-phone"></i> <%=productor.getTelefono()%>)</h5>
-                                    <p class="card-text"><i class="fa fa-envelope"></i> <%=productor.getEmail()%></p>
+                                    <h5 class="card-title"><%=productor.getNombre()%></h5>
+                                    <p class="card-text">
+                                        <i class="fa fa-phone"></i> <%=productor.getTelefono()%><br>
+                                        <i class="fa fa-envelope"></i> <%=productor.getEmail()%>
+                                    </p>
                                 </div>
                             </div>
     <%
                     }
     %>
                         </div>
+                        <p class="p-2 fw-bold">No oblides contactar i recollir la teua comanda!</p>
                         <p class="p-2">
                             Pots consultar més informació sobre cada productor 
-                            <a href="#" onclick="borrarCarrito(); Cargar('./userAccess_component/gestio_comandes.jsp', 'cuerpo')" role="button" class="btn rounded-pill bg-light text-dark">ací</a>
+                            <a href="#" onclick="borrarCarrito(); Cargar('./userAccess_component/gestio_comandes.jsp', 'cuerpo')" role="button" class="btn rounded-pill bg-light text-dark fw-bold">ACÍ</a>
                         </p>
                     </div>
                 </div>    
-                <div class="d-flex justify-content-center mt-3 mb-4">
-                    <img src="./img/logos/comandaReservada.png" class="img-fluid" alt="Comanda Reservada">
-                </div>
+                
                 <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-dark me-4" onclick="borrarCarrito(); Cargar('shop_component/shop.jsp', 'cuerpo')"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> Tornar a la tenda</button>
                     
