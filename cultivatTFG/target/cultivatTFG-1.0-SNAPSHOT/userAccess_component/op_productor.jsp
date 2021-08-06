@@ -34,7 +34,7 @@
         }
         else {   
     %>
-            <p class="bold h5 mt-2 mb-3 text-center p-2">Benvingut productor: <%=usuarioActual%></p>
+            <p class="fw-bold h3 mt-2 mb-3 text-center p-2">Benvingut productor: <%=usuarioActual%></p>
             
             <div class="d-flex justify-content-center my-4">
                 <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('userAccess_component/mod_infoUsuario.jsp', 'cuerpo')">Modificar dades Usuari</button>

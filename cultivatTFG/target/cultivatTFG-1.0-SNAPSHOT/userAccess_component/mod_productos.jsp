@@ -48,12 +48,12 @@
             
             <div class="d-flex justify-content-center">
                 <div>
-                    <p class="bold h3 mt-2 p-2">Gestió dels productes de <b><%=usuarioActual%></b></p>
+                    <p class="fw-bold h3 mt-2 p-2">Gestió dels productes de <b><%=usuarioActual%></b></p>
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-2">
                 <div class="mx-4">
-                    <table class="table  table-hover table-responsive caption-top mx-auto">
+                    <table class="table table-hover table-responsive caption-top mx-auto">
                         <caption>
                             <button type="button" class="btn btn-outline-dark me-5" onclick="Cargar('userAccess_component/op_productor.jsp', 'cuerpo')"><i class="fa fa-arrow-left"></i></button>
                             <button type="button" class="btn btn-outline-dark float-end" onclick="Cargar('userAccess_component/add_producto.jsp','cuerpo')"><i class="fa fa-plus"></i> Afegir Producte</button>
