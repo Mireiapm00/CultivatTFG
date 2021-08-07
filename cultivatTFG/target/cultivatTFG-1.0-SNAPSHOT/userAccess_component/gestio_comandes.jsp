@@ -51,7 +51,6 @@
                     for(PedidosBD p : pedidos){
                         List<DetalleBD> detalles = con.obtenerDetallesPedidosPorIdPedido(p.getId_pedido());
                         
-
 %>
                             <tr class="text-center">
                                 <td class="px-4"><%=p.getId_pedido()%></td>
@@ -63,47 +62,38 @@
                             
                             <div class="modal fade" id="detallePedidoModal<%=p.getId_pedido()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             
-                            <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title fw-bold" id="detallePedidoModal<%=p.getId_pedido()%>">Detall comanda Nº <%=p.getId_pedido()%></h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="d-flex align-items-center justify-content-center">
-<%
-                                    int i = 0;
-                                    for(DetalleBD d : detalles){
-                                        ProductosBD producto = con.obtenerProducto(d.getId_producto());
-                                        i++;
-%>
-                                        <div class="card mx-4" style="border: none">
-                                            <img src="<%=producto.getImgroute()%>" alt="" class="img-thumbnail w-50">
-                                            <div class="card-body">
-                                                <h5 class="card-title fw-bold"><%=producto.getNombre()%></h5>
-                                                <p class="card-text">
-                                                    <i>(<%=producto.getPrecio_unitario()%> €/<%=producto.getUnidad()%>)</i><br>
-                                                    <%=d.getUnidades()%> <%=producto.getUnidad()%>
-                                                    <hr>
-                                                    <p class="fw-bold text-center"><%=(d.getUnidades()*producto.getPrecio_unitario())%>€</p>
-                                                </p>
-                                            </div>
+                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-dark text-white">
+                                            <h4 class="modal-title fw-bold " id="detallePedidoModal<%=p.getId_pedido()%>">Detall comanda Nº <%=p.getId_pedido()%></h4>
+                                            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-<%
-                                        if(i != detalles.size()){
-%>                              
-                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        <div class="modal-body">
+                                            <div class="d-flex flex-column">
+    <%
+
+                                        for(DetalleBD d : detalles){
+                                            ProductosBD producto = con.obtenerProducto(d.getId_producto());
+                                            ProductoresBD productor = con.obtenerInfoProductorBD(d.getId_productor());
+    %>
+                                            <div class="d-flex align-items-center my-3 border border-light p-2 shadow-sm ">
+                                                <div class="w-50"><img src="<%=producto.getImgroute()%>" alt="Producte" class="w-25">&nbsp;<span class="fw-bold h5"><%=producto.getNombre()%></span>
+                                                    <cite>(<%=productor.getNombre()%>)</cite>
+                                                </div>
+                                                <div class="h5 me-4"><i class="fa fa-cart-arrow-down"></i> &nbsp;<%=d.getUnidades()%> <%=producto.getUnidad()%>&nbsp;&nbsp;<i class="fa fa-times"></i>&nbsp;&nbsp;<%=producto.getPrecio_unitario()%> €/<%=producto.getUnidad()%></div>
+                                                <div class="h5 mx-4"><span class="fw-bold">Total: </span> <%=d.getUnidades()*d.getPrecio_unitario()%> €</div>
+                                            </div>
+                                       
 <%
                                         }
-                                    }
 %>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer justify-content-center bg-light text-dark">
+                                            <p class="h4 fw-bold text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Total comanda: <%=p.getImporte()%> €</p>
                                         </div>
                                     </div>
-                                    <div class="modal-footer justify-content-center">
-                                        <h5 class="fw-bold text-center border border-success rounded-pill p-3">Total comanda: <%=p.getImporte()%>€</h5>
-                                    </div>
                                 </div>
-                            </div>
 <%
                     }
 %>

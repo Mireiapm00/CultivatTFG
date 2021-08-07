@@ -69,7 +69,7 @@
                 <div class="modal fade" id="modalCenter<%=prod.getId_productor()%>" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle<%=prod.getId_productor()%>" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable modal-xl" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header bg-dark text-white">
                                 <h5 class="modal-title" id="modalCenterTitle<%=prod.getId_productor()%>"><b><%=prod.getNombre()%></b></h5>
                                 <button type="button" class="close btn-outline-dark" data-dismiss="modal" aria-label="Close">
                                     <i class="fa fa-times"></i>
