@@ -100,7 +100,7 @@
                     <div class="mb-2 text-center">
                         <input class="btn btn-dark me-4" type="submit" value="Modificar">
                         <input class="btn btn-outline-dark" type="reset" value="Cancelar"
-                                <% if(from == "resguardo"){ session.removeAttribute("from"); %> onclick="Cargar('./shop_component/shop.jsp', 'cuerpo')"
+                                <% if(from == "resguardo"){ session.removeAttribute("from"); %> onclick="Cargar('./shop_component/resguardo.jsp', 'cuerpo')"
                                 <% } else if(infoUsuario.isProductor()){ %> onclick="Cargar('./userAccess_component/op_productor.jsp', 'cuerpo')"
                                 <% } else { %> onclick="Cargar('./userAccess_component/op_user.jsp', 'cuerpo')" <% } %> >
                     </div>

@@ -38,12 +38,19 @@
                 for(CategoriasBD cat: categories){
                     String nombre = cat.getNombre();
                     String route = catRoutes.get(i);
-            %>
-            <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('<%=route%>', 'cuerpo')"><%=nombre%></button>        
-            <%      
+                    if(i == 3){
+        %>
+                        <button type="button" class="btn btn-dark me-4" onclick="Cargar('<%=route%>', 'cuerpo')"><%=nombre%></button>        
+        <%      
+                    }
+                    else {
+        %>
+                        <button type="button" class="btn btn-outline-dark me-4" onclick="Cargar('<%=route%>', 'cuerpo')"><%=nombre%></button>        
+        <%
+                    }
                     i++;
                 }
-            %>
+        %>
             </div>
         </div>
         

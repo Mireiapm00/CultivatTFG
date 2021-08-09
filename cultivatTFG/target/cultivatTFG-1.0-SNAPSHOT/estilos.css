@@ -23,6 +23,10 @@ body {
     border-bottom: 3px solid transparent;
 }
 
+#noborder:hover{
+   border-bottom: 3px solid transparent; 
+}
+
 .navbar a:hover {
     color: black;
     border-bottom: 3px solid green;
