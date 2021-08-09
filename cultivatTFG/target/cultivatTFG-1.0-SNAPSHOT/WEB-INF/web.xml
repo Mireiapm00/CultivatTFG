@@ -48,6 +48,10 @@
         <servlet-name>TramitarPedido</servlet-name>
         <servlet-class>com.cultivattfg.bd.TramitarPedido</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CambiarEstadoPedido</servlet-name>
+        <servlet-class>com.cultivattfg.bd.CambiarEstadoPedido</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginUsuario</servlet-name>
         <url-pattern>/LoginUsuario</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>TramitarPedido</servlet-name>
         <url-pattern>/TramitarPedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CambiarEstadoPedido</servlet-name>
+        <url-pattern>/CambiarEstadoPedido</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

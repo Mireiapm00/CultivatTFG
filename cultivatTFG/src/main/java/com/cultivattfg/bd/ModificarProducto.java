@@ -81,6 +81,7 @@ public class ModificarProducto extends HttpServlet {
             out.println("<div class=\"mb-2 text-center\">\n" +
                         "<input type='text' hidden name='id_producto' value='" + producto.getId_producto() + "'> " +
                         "<input class=\"btn btn-dark me-4\" type=\"submit\" value=\"Modificar\">" +
+                        "<input class=\"btn btn-outline-dark\" type=\"reset\" value=\"Cancelar\" onclick=\"Cargar('./userAccess_component/mod_productos.jsp', 'cuerpo')\"/> " +
                         "</div>");
             
             out.println("</div>");

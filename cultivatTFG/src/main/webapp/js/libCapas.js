@@ -102,10 +102,11 @@ function ProcesarCarrito(carrito, url, capa)
 	var valores="carrito=" + JSON.stringify(carrito);
 	CargarForm(url, capa, valores);
 }
-			
-function cargaInicial()
-{                            
-	Cargar('menu.html','menu');
-	Cargar('inicio.jsp','cuerpo');
+
+function ProcesarEstadoPedido(url, capa)
+{
+    var valores = "id_pedido="+document.getElementById('id_pedido').value+"&";
+    valores += "estado="+ document.getElementById('selectedEstado').value;
+    CargarForm(url, capa, valores);
 }
 

@@ -70,9 +70,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                    <%
+                <%
+                    if(productos.size() != 0){
                         for(ProductosBD p: productos){
-                    %>
+				%>
                         <tr class="text-center">
                             <td class="px-4"><%=p.getNombre()%></td>
                             <td class="px-4"><%=p.getStock()%></td>
@@ -131,9 +132,17 @@
                                 </div>
                             </td>
                         </tr>
-                    <%
+            <%
                         }
-                    %>
+                    }
+                    else {
+            %>
+                        <tr class="text-center">
+                            <td colspan="7" class="px-4"><img src="./img/logos/noproductes.png" alt="No productes"></td>
+                        </tr>
+            <%
+                    }
+            %>
                         </tbody>
                     </table>
                 </div>

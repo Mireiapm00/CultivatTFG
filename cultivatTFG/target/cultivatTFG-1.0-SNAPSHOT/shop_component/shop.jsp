@@ -4,6 +4,7 @@
     Author     : mireia
 --%>
 
+<%@page import="com.cultivattfg.bd.classesBD.Usuario"%>
 <%@page import="com.cultivattfg.bd.classesBD.ProductosBD"%>
 <%@page import="java.util.List"%>
 <%@page import="com.cultivattfg.bd.AccesoBD"%>
@@ -33,6 +34,8 @@
             String usuarioActual = (String)session.getAttribute("user");
             
             AccesoBD con = AccesoBD.getInstance();
+            Usuario user = con.obtenerUsuarioBD(usuarioActual);
+			
             List<ProductosBD> productos = con.obtenerProductos();
         %>
             
@@ -46,12 +49,19 @@
                         <i class="fa fa-caret-right" aria-hidden="true"></i>&nbsp;<span id="totalCarrito"></span>
                     </button>
             <%
-                if(usuarioActual != null){
+                if(usuarioActual != null  && !user.isProductor()){
             %>
                     <button type="button" class="btn rounded-pill bg-light text-dark" onclick="Cargar('userAccess_component/op_user.jsp', 'cuerpo')">
                         Hola&nbsp;<i class="fa fa-user"></i> <u class="fw-bold"><%=usuarioActual%></u>
                     </button>
             <%   
+                }
+                else if (usuarioActual != null && user.isProductor()){
+            %>
+                    <button type="button" class="btn rounded-pill bg-light text-dark" onclick="Cargar('userAccess_component/op_productor.jsp', 'cuerpo')">
+                        Hola&nbsp;<i class="fa fa-user"></i> <u class="fw-bold"><%=usuarioActual%></u>
+                    </button>
+            <%
                 }
             %>
                 </div>
@@ -69,6 +79,7 @@
                             <div class="card-body">
                                 <p class="card-text text-center">
                                     <span class="fw-bold"><%=p.getNombre()%></span><br>
+                                    <cite>(<%=p.getIngredientes()%>)</cite><br>
                                     <%=p.getPrecio_unitario()%> €/<%=p.getUnidad()%>
                                 </p>
                             </div>
@@ -87,6 +98,7 @@
                             <div class="card-body">
                                 <p class="card-text text-center">
                                     <span class="fw-bold"><%=p.getNombre()%></span><br>
+                                    <cite>(<%=p.getIngredientes()%>)</cite><br>
                                     <%=p.getPrecio_unitario()%> €/<%=p.getUnidad()%>
                                 </p>
                             </div>

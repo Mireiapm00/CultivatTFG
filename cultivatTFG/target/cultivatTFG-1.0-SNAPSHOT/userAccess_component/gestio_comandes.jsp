@@ -48,8 +48,9 @@
 
                         <tbody>
 <%
-                    for(PedidosBD p : pedidos){
-                        List<DetalleBD> detalles = con.obtenerDetallesPedidosPorIdPedido(p.getId_pedido());
+                    if(pedidos.size() != 0){
+                        for(PedidosBD p : pedidos){
+                            List<DetalleBD> detalles = con.obtenerDetallePorPedido(p.getId_pedido());
                         
 %>
                             <tr class="text-center">
@@ -95,14 +96,21 @@
                                     </div>
                                 </div>
 <%
+                        }
                     }
+                    else {
+%>
+                        <tr class="text-center">
+                            <td colspan="5" class="px-4"><img src="./img/logos/nocomandes.png" alt="No comandes"></td>
+                        </tr>
+<%
+                    }             
 %>
 
                         </tbody>
                     </table>
                 </div>
             </div>
-    
 <%
         }
 %>
