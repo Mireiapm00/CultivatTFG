@@ -39,8 +39,6 @@ public class RegistroProducto extends HttpServlet {
         String usuarioActual = (String)sesion.getAttribute("user");
         int id_usuario = con.obtenerIdUsuarioBD(usuarioActual);
         int id_productor = con.obtenerIdProductorBD(id_usuario);
-        //int id_categoria = con.obtenerIdCategoriaProductor(id_productor);
-        //get categoria from form
         
         producto.setId_categoria(Integer.parseInt(request.getParameter("categoria")));
         producto.setId_productor(id_productor);

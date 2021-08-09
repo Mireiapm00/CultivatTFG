@@ -42,7 +42,7 @@
             
     %>
     
-    <p class="bold h5 mt-2 mb-3 text-center p-2">Modificar dades de <b><%=infoUsuario.getUsuario()%></b> a <b><%=infoProductor.getNombre()%></b></p>
+    <p class="bold h3 mt-2 mb-3 text-center p-2">Modificar dades de <span class="fw-bold rounded-pill bg-light text-dark p-2"><%=infoUsuario.getUsuario()%></span> a <span class="fw-bold rounded-pill bg-light text-dark p-2"><%=infoProductor.getNombre()%></span></p>
     
             <form name="form1" method="post" onsubmit="ProcesarForm(this, 'ModificarDatosProductor', 'cuerpo'); return false">
                 <div class="container w-50 mt-4">

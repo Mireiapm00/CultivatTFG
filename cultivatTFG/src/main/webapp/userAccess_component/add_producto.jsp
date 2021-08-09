@@ -58,8 +58,8 @@
                     <label for="floatingIngredientes">Ingredients</label>
                 </div>
                 <div class="mb-2 text-center">
+                    <button type="submit" class="btn btn-dark me-4">Afegir Producte</button>
                     <button type="button" class="btn btn-outline-dark" onclick="Cargar('./userAccess_component/mod_productos.jsp', 'cuerpo')">Cancelar</button>
-                    <button type="submit" class="btn btn-dark">Afegir Producte</button>
                 </div>
             </div>
         </form>

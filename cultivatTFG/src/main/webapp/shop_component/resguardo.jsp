@@ -98,7 +98,7 @@
                 <div class=" d-flex justify-content-center align-items-center my-2">
                     <form method="post" onsubmit="ProcesarForm(this, 'TramitarPedido', 'cuerpo'); return false;">
                         <button type="submit" class="btn btn-dark me-4">Confirmar reserva</button>
-                        <button class="btn btn-outline-dark" type="button" onclick="Cargar('./shop_component/resguardo.jsp', 'cuerpo')">Cancelar</button>
+                        <button type="button" class="btn btn-outline-dark" onclick="Cargar('./shop_component/shop.jsp', 'cuerpo');">Cancelar</button>
                     </form>
                     
                 </div>
@@ -108,6 +108,7 @@
         </div>
 <%
     }
-%>     
+%>   
+
     </body>
 </html>

@@ -125,6 +125,7 @@ public class TramitarPedido extends HttpServlet {
             
             sesion.removeAttribute("totalCarrito");
             sesion.removeAttribute("carrito");
+            sesion.removeAttribute("from");
             
             
             sesion.setAttribute("SUCCESS", "Comanda registrada correctament.");

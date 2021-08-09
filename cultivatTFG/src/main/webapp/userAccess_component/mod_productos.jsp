@@ -48,7 +48,7 @@
             
             <div class="d-flex justify-content-center">
                 <div>
-                    <p class="fw-bold h3 mt-2 p-2">Gestió dels productes de <b><%=usuarioActual%></b></p>
+                    <p class="fw-bold h3 mt-2 p-2">Gestió dels productes de <span class="fw-bold rounded-pill bg-light text-dark p-2"><%=usuarioActual%></span></p>
                 </div>
             </div>
             <div class="d-flex justify-content-center mb-2">

@@ -23,6 +23,7 @@
                 muestraTotalCarrito();
             </script>
         <%
+            session.removeAttribute("from");
             String mensaje = (String)session.getAttribute("ERRORSTOCK");
             if(mensaje != null){
                 session.removeAttribute("ERRORSTOCK");
