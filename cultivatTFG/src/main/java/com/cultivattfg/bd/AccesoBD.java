@@ -11,8 +11,12 @@
 package com.cultivattfg.bd;
 
 import com.cultivattfg.bd.classesBD.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class AccesoBD {
@@ -297,16 +301,52 @@ public class AccesoBD {
     
     public boolean registroProductoBD(ProductosBD producto){
         abrirConexionBD();
+        
+        boolean ok = false;
+        
+        try {
+            
+            String sql = "INSERT INTO productos (id_categoria, id_productor, nombre, stock, unidad, precio_unitario, ingredientes, foto)"
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            
+            PreparedStatement statement = conexionBD.prepareStatement(sql);
+            statement.setInt(1, producto.getId_categoria());
+            statement.setInt(2, producto.getId_productor());
+            statement.setString(3, producto.getNombre());
+            statement.setInt(4, producto.getStock());
+            statement.setString(5, producto.getUnidad());
+            statement.setFloat(6, producto.getPrecio_unitario());
+            statement.setString(7, producto.getIngredientes());
+            statement.setBlob(8, producto.getFoto());
+            
+            int rows = statement.executeUpdate();
+            
+            if(rows > 0)
+                ok = true;
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("Error al insertar en la BBDD. ");
+        }
+        
+	cerrarConexionBD();
+        return ok;
+    }
+    
+    /*
+    public boolean registroProductoBD(ProductosBD producto){
+        abrirConexionBD();
+        
         boolean ok = false;
         
         try {
             String con;
             Statement s = conexionBD.createStatement();
             
-            con = "INSERT INTO productos (id_categoria, id_productor, nombre, stock, unidad, precio_unitario, ingredientes)"
+            con = "INSERT INTO productos (id_categoria, id_productor, nombre, stock, unidad, precio_unitario, ingredientes, foto)"
                     + " VALUES( " + producto.getId_categoria() + ", " + producto.getId_productor() + ", \"" + producto.getNombre() + "\", "
                     + producto.getStock() + ", \"" + producto.getUnidad() + "\", " + producto.getPrecio_unitario() + ", \"" 
-                    + producto.getIngredientes() + "\")";
+                    + producto.getIngredientes() + "\", " + producto.getFoto() + " )";
             
             s.executeUpdate(con);
             ok = true;
@@ -317,7 +357,7 @@ public class AccesoBD {
         
 	cerrarConexionBD();
         return ok;
-    }
+    }*/
     
     public int obtenerIdUsuarioBD(String usuario){
         abrirConexionBD();
@@ -800,10 +840,31 @@ public class AccesoBD {
                 producto.setUnidad(resultados.getString("unidad"));
                 producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
                 producto.setIngredientes(resultados.getString("ingredientes"));
-                producto.setImgroute(resultados.getString("imgroute"));
+               
+                
+                Blob blob = resultados.getBlob("foto");
+                InputStream inputStream = blob.getBinaryStream();
+                producto.setFoto(inputStream);
+                
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                
+                while((bytesRead = inputStream.read(buffer)) != -1){
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                
+                byte[] imageBytes = outputStream.toByteArray();
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                
+                inputStream.close();
+                outputStream.close();
+                
+                producto.setImgroute(base64Image);
+                
             }
         }
-        catch(SQLException e) {
+        catch(SQLException | IOException ex) {
             System.out.println("Error ejecutando la consulta a la BBDD.");
         }
         
@@ -838,11 +899,31 @@ public class AccesoBD {
                 producto.setUnidad(resultados.getString("unidad"));
                 producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
                 producto.setIngredientes(resultados.getString("ingredientes"));
-                producto.setImgroute(resultados.getString("imgroute"));
+                
+                Blob blob = resultados.getBlob("foto");
+                InputStream inputStream = blob.getBinaryStream();
+                producto.setFoto(inputStream);
+                
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                
+                while((bytesRead = inputStream.read(buffer)) != -1){
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                
+                byte[] imageBytes = outputStream.toByteArray();
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                
+                inputStream.close();
+                outputStream.close();
+                
+                producto.setImgroute(base64Image);
+                
                 productos.add(producto);
             }
         }
-        catch(SQLException e) {
+        catch(SQLException | IOException ex) {
             System.out.println("Error ejecutando la consulta a la BBDD.");
         }
 		
@@ -877,11 +958,31 @@ public class AccesoBD {
                 producto.setUnidad(resultados.getString("unidad"));
                 producto.setPrecio_unitario(resultados.getFloat("precio_unitario"));
                 producto.setIngredientes(resultados.getString("ingredientes"));
-                producto.setImgroute(resultados.getString("imgroute"));
+                
+                Blob blob = resultados.getBlob("foto");
+                InputStream inputStream = blob.getBinaryStream();
+                producto.setFoto(inputStream);
+                
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                
+                while((bytesRead = inputStream.read(buffer)) != -1){
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                
+                byte[] imageBytes = outputStream.toByteArray();
+                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                
+                inputStream.close();
+                outputStream.close();
+                
+                producto.setImgroute(base64Image);
+                
                 productos.add(producto);
             }
         }
-        catch(SQLException e) {
+        catch(SQLException | IOException ex) {
             System.out.println("Error ejecutando la consulta a la BBDD.");
         }
 		

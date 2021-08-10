@@ -5,6 +5,8 @@
  */
 package com.cultivattfg.bd.classesBD;
 
+import java.io.InputStream;
+
 
 /**
  *
@@ -20,6 +22,7 @@ public class ProductosBD {
     private float precio_unitario;
     private String ingredientes;
     private String imgroute;
+    private InputStream foto;
 
     public int getId_producto() {
         return id_producto;
@@ -91,6 +94,14 @@ public class ProductosBD {
 
     public void setImgroute(String imgroute) {
         this.imgroute = imgroute;
+    }
+
+    public InputStream getFoto() {
+        return foto;
+    }
+
+    public void setFoto(InputStream foto) {
+        this.foto = foto;
     }
     
 }

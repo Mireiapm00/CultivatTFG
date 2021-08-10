@@ -78,7 +78,7 @@
                                             ProductoresBD productor = con.obtenerInfoProductorBD(d.getId_productor());
     %>
                                             <div class="d-flex align-items-center my-3 border border-light p-2 shadow-sm ">
-                                                <div class="w-50"><img src="<%=producto.getImgroute()%>" alt="Producte" class="w-25">&nbsp;<span class="fw-bold h5"><%=producto.getNombre()%></span>
+                                                <div class="w-50"><img src="data:image/jpg;base64,<%=producto.getImgroute()%>" alt="Producte" class="w-25" />&nbsp;<span class="fw-bold h5"><%=producto.getNombre()%></span>
                                                     <cite>(<%=productor.getNombre()%>)</cite>
                                                 </div>
                                                 <div class="h5 me-4"><i class="fa fa-cart-arrow-down"></i> &nbsp;<%=d.getUnidades()%> <%=producto.getUnidad()%>&nbsp;&nbsp;<i class="fa fa-times"></i>&nbsp;&nbsp;<%=producto.getPrecio_unitario()%> €/<%=producto.getUnidad()%></div>

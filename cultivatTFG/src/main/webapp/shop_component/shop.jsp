@@ -40,9 +40,8 @@
             List<ProductosBD> productos = con.obtenerProductos();
         %>
             
-            <div class="d-flex justify-content-center">
-                <p class="fw-bold h3 mt-2 text-center p-2">Productes de l'SPG Ecollaures</p>
-            </div>
+            
+            <p class="fw-bold h3 mt-2 text-center p-2">Productes de l'SPG Ecollaures</p>
             <div class="container w-75">
                 <div class="d-flex justify-content-between me-2 mb-2">
                     <button type="button" class="btn btn-dark rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#modalCarrito" onclick="crearCarritoModal()">
@@ -76,7 +75,8 @@
         %>          
                     <div>
                         <div class="card mx-4 mt-4" style="width: 13rem;">
-                            <img src="<%=p.getImgroute()%>" class="card-img w-100 text-center" alt="<%=p.getNombre()%>">
+                            <img src="data:image/jpg;base64,<%=p.getImgroute()%>" />
+                            <!--<img src="<%=p.getImgroute()%>" class="card-img w-100 text-center" alt="<%=p.getNombre()%>">-->
                             <div class="card-body">
                                 <p class="card-text text-center">
                                     <span class="fw-bold"><%=p.getNombre()%></span><br>
@@ -95,7 +95,7 @@
                     <div class="d-flex justify-content-center my-3">
                     <div>
                         <div class="card mx-4 mt-4" style="width: 13rem;">
-                            <img src="<%=p.getImgroute()%>" class="card-img w-100" alt="Producte <%=p.getNombre()%>">
+                            <img src="data:image/jpg;base64,<%=p.getImgroute()%>" />
                             <div class="card-body">
                                 <p class="card-text text-center">
                                     <span class="fw-bold"><%=p.getNombre()%></span><br>

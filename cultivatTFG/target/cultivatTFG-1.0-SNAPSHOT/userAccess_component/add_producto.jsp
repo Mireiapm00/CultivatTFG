@@ -24,9 +24,9 @@
             int id_productor = con.obtenerIdProductorBD(id_usuario);
             int id_categoria = con.obtenerIdCategoriaProductor(id_productor);
     %>
-        <form name="form1" method="post" onsubmit="ProcesarForm(this, 'RegistroProducto', 'cuerpo'); return false">
+    <form name="form1" method="post" enctype="multipart/form-data"  action="RegistroProducto" ><!--  onsubmit="ProcesarForm(this, 'RegistroProducto', 'cuerpo'); return false" -->
             <div class="container w-50 mt-1">
-                <p class="fw-bold h5 text-center p-2">Afegir Producte</p>
+                <p class="fw-bold h3 text-center p-2">Afegir Producte</p>
                 <div class="form-floating mb-3">
                         <select class="form-select" id="floatingCategoria" aria-label="Selecciona una categoria" name="categoria" required>
                             <option value="1" <% if(id_categoria == 1){ %> selected <% } %> >Hortalisses i Fruita</option>
@@ -56,6 +56,10 @@
                 <div class="form-floating mb-3 text-center">
                     <textarea class="form-control" id="floatingIngredientes" placeholder="Ingredientes" name="ingredientes" style="height: 100px" required></textarea>
                     <label for="floatingIngredientes">Ingredients</label>
+                </div>
+                <div class="mb-3">
+                    <label for="floatingImage">Selecciona una imatge</label>
+                    <input type="file" class="form-control" id="floatingImage" name="floatingImage" size="50" required/>
                 </div>
                 <div class="mb-2 text-center">
                     <button type="submit" class="btn btn-dark me-4">Afegir Producte</button>

@@ -30,7 +30,7 @@
             List<DetalleBD> detallesPedido = con.obtenerDetallePorPedido(id_pedido);
             
     %>
-            <div class="container w-75">
+    <div class="container w-75" onload="borrarCarrito()">
                 <div class="d-flex justify-content-center mt-3 mb-4">
                     <img src="./img/logos/comandaReservada.png" class="img-fluid" alt="Comanda Reservada">
                 </div>
@@ -56,7 +56,7 @@
                     }
     %>
                         </div>
-                        <p class="p-2 fw-bold">No oblides contactar i recollir la teua comanda!</p>
+                        <p class="mt-2 p-2 fw-bold">No oblides <span class="fw-bold rounded-pill bg-light text-dark p-2">contactar amb ells</span> i recollir la teua comanda!</p>
                         <p class="p-2">
                             Pots consultar més informació sobre cada productor 
                             <a href="#" onclick="borrarCarrito(); Cargar('./userAccess_component/gestio_comandes.jsp', 'cuerpo')" role="button" class="btn rounded-pill bg-light text-dark fw-bold">ACÍ</a>

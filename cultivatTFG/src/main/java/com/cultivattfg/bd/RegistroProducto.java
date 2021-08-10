@@ -7,17 +7,20 @@ package com.cultivattfg.bd;
 
 import com.cultivattfg.bd.classesBD.ProductosBD;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author mireia
  */
+@MultipartConfig(maxFileSize = 16177215)
 public class RegistroProducto extends HttpServlet {
 
     /**
@@ -31,7 +34,6 @@ public class RegistroProducto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         AccesoBD con = new AccesoBD();
         HttpSession sesion = request.getSession(true);
         ProductosBD producto = new ProductosBD();
@@ -45,19 +47,34 @@ public class RegistroProducto extends HttpServlet {
         producto.setNombre(request.getParameter("nombreProducto"));
         producto.setStock(Integer.parseInt(request.getParameter("stock")));
         producto.setUnidad(request.getParameter("unidadMedida"));
-        producto.setPrecio_unitario(Integer.parseInt(request.getParameter("precio")));
+        producto.setPrecio_unitario(Float.parseFloat(request.getParameter("precio")));
         producto.setIngredientes(request.getParameter("ingredientes"));
         
+        InputStream inputStream = null;
+        
+        Part filePart = request.getPart("floatingImage");
+        
+        if (filePart != null) {
+            // prints out some information for debugging
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+             
+            // obtains input stream of the upload file
+            inputStream = filePart.getInputStream();
+            producto.setFoto(inputStream);
+        }
         
         if(con.registroProductoBD(producto)){
             sesion.setAttribute("SUCCESS", "Producte afegit correctament");
-            response.sendRedirect("./userAccess_component/mod_productos.jsp");
+            sesion.setAttribute("from", "registroProducto");
+            response.sendRedirect("index.jsp");
+            
         }
         else {
             sesion.setAttribute("ERROR", "Error al afegir el producte.");
             response.sendRedirect("./userAccess_component/mod_productos.jsp");
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
